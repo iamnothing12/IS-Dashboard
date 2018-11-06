@@ -1,0 +1,30 @@
+img {
+     height: 5vw; 
+     width: 5vw; 
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px gray;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+
+.circletag {
+    width: 17vh;
+    height: 17vh;
+    border: 2px solid #fff;
+    -webkit-border-radius: 60px;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 60px;
+    -moz-background-clip: padding;
+    border-radius: 60px;
+    box-shadow: 0 0 10px gray;
+    background-clip: padding-box;
+    margin: -3px 0 9px 5px;
+    float: left;
+    background-size: cover;
+    background-position: center center;
+}

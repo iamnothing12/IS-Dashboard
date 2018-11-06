@@ -1,0 +1,126 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-menu-button>
+      </ion-menu-button>
+    </ion-buttons>
+    <ion-title>Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="medium" padding>
+
+  <ion-card color="light">
+    <img src="../../assets/icon/steps.jpg" />
+    <ion-card-content>
+      <ion-card-title>
+        National Steps Challenge™ Season 4 is here!
+      </ion-card-title>
+      <p>
+        This season, there are more ways to win prizes with a new heart-rate monitoring fitness tracker*^
+        for every sign-up. It’s time to start clocking your steps and time spent on moderate to vigorous
+        physical activities (MVPA).
+      </p>
+    </ion-card-content>
+    <ion-row no-padding>
+      <ion-col>
+        <ion-button clear small color="danger" icon-start>
+          <ion-icon name='star'></ion-icon>
+          Favorite
+        </ion-button>
+      </ion-col>
+
+      <ion-col text-right>
+        <ion-button clear small color="danger" icon-start>
+          <ion-icon name='share-alt'></ion-icon>
+          Share
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+  <ion-card color="light">
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="../../assets/icon/harryspagetti.jpg">
+      </ion-avatar>
+      <h3>Dr. Harry Ngyuen</h3>
+      <p>November 5, 2018</p>
+    </ion-item>
+    <img src="../../assets/icon/SampleRecord.png">
+    <ion-card-content>
+      <p>#TBT the last time i exercised</p>
+    </ion-card-content>
+    <ion-row>
+      <ion-col>
+        <ion-button icon-start clear small>
+          <ion-icon name="thumbs-up"></ion-icon>
+          <div>12 Likes</div>
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button icon-start clear small>
+          <ion-icon name="text"></ion-icon>
+          <div>4 Comments</div>
+        </ion-button>
+      </ion-col>
+      <ion-col center text-center>
+        <ion-note>
+          11h ago
+        </ion-note>
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+
+  <ion-card color="light">
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="../../assets/icon/bruce.png">
+      </ion-avatar>
+      <h3>Bruce Way-ne</h3>
+      <p>November 2, 2018</p>
+    </ion-item>
+    <ion-card-content>
+      <p>Mayoniense</p>
+    </ion-card-content>
+    <ion-row>
+      <ion-col>
+        <ion-button icon-start clear small>
+          <ion-icon name="thumbs-up"></ion-icon>
+          <div>20 Likes</div>
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button icon-start clear small>
+          <ion-icon name="text"></ion-icon>
+          <div>40 Comments</div>
+        </ion-button>
+      </ion-col>
+      <ion-col center text-center>
+        <ion-note>
+          30 mins ago
+        </ion-note>
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-list side="top">
+      <ion-fab-button color="primary" [routerLink]="'/selectionpage'" routerDirection="'root'">
+        <ion-icon name="list"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="secondary" [routerLink]="'/freerun'" routerDirection="'root'">
+        <ion-icon name="contact"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="danger" [routerLink]="'/ghostrun'" routerDirection="'root'">
+        <ion-icon name="logo-snapchat"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-title text-center>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="medium" padding>
+  <ion-list color="light">
+    <ion-item>
+      <ion-grid color="medium" style="height: 100%">
+        <ion-col>
+          <ion-row justify-content-center align-items-center style="height: 50%">
+            <ion-item style="width : 50% ; height : 50%" [href]="'/login'" routerDirection="forward" no-lines>
+              <ion-img src="../../assets/icon/Logo.png" class="center"></ion-img>
+            </ion-item>
+          </ion-row>
+        </ion-col>
+        <ion-col>
+          <ion-row justify-content-center align-items-center>
+            <h1 text-center>DashBoard</h1>
+          </ion-row>
+        </ion-col>
+      </ion-grid>
+    </ion-item>
+
+    <ion-item>
+      <ion-input type="text" placeholder="Username" text-align: center></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input [type]="passwordType" placeholder="Password" text-align: center></ion-input>
+      <ion-icon name="eye" color="gray" item-end (click)="togglePassword()"></ion-icon>
+    </ion-item>
+
+    <ion-item [href]="'/Dashboard'" routerDirection="forward" color="primary">Login</ion-item>
+  </ion-list>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-fab-button color="primary">
+          <ion-icon name="logo-facebook"></ion-icon>
+        </ion-fab-button>
+
+      </ion-col>
+      <ion-col>
+        <ion-fab-button color="tertiary">
+          <ion-icon name="logo-instagram"></ion-icon>
+        </ion-fab-button>
+
+      </ion-col>
+      <ion-col>
+        <ion-fab-button color="danger">
+          <ion-icon name="logo-googleplus"></ion-icon>
+        </ion-fab-button>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
+</ion-content>

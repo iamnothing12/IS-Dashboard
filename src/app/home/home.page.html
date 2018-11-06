@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-title text-center>
+      Ionic Blank
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="medium" padding>
+  Welcome! Click on the app to begin!
+
+
+  <ion-grid color="light" style="height: 100%">
+    <ion-row justify-content-center align-items-center style="height: 50%">
+      <ion-item style="width : 50% ; height : 50%" [href]="'/login'" routerDirection="forward" no-lines >
+        <ion-img  src="../../assets/icon/Logo.png" class="center"></ion-img>
+      </ion-item>
+    </ion-row>
+  </ion-grid>
+  
+  <!-- <button (click)="onLoadLogin()" > Login Time</button> -->
+</ion-content>
