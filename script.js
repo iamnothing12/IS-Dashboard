@@ -13,23 +13,44 @@ $(document).ready(function() {
       $xml.find('trkpt').each(function(){
           var lat = $(this).attr('lat');
         var lon = $(this).attr('lon');
-        		  var image = 'a.jpg';
+        		  var image = 'a.png';
         var marker = new google.maps.Marker({
           position: new google.maps.LatLng(lat, lon),
           map: map,
-          //icon: image,
+          icon: image,
         });
-		allMyMarkers.push(marker);
-		console.log(allMyMarkers[i++].getPosition().toString());
+    allMyMarkers.push(marker);
+    allCoord.push(marker.getPosition())
+    // visitPath.setPath(allCoord);
+		console.log(allCoord[i++].toString());
       });
+
+    visitPath = new google.maps.Polyline({
+        strokeColor: '#000ec9',
+        strokeOpacity: 1.0,
+        strokeWeight: 3,
+        path: allCoord
+      });
+
+   ghostPath = new google.maps.Polyline({
+        strokeColor: '#ff0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 3
+    });
+    // visitPath.setPath(allCoord);
+    visitPath.setMap(map);
+    ghostPath.setMap(map);
     };
    // map.setCenter(allMyMarkers[0].getPosition().lat(), allMyMarkers[0].getPosition().lng());
     reader.readAsText(this.files[0]);
+    
   });
 });
-var i=0;
+var i = 0;
 var marker, map;
-var allMyMarkers =[];
+var allMyMarkers = [];
+var allCoord = [];
+var visitPath, ghostPath;
 
 function initMap() {
 	if (navigator.geolocation) {
@@ -40,7 +61,7 @@ function initMap() {
 			});
 
 			marker = new google.maps.Marker({
-			  map: map,
+        map: map,
 			  draggable: true,
 			  animation: google.maps.Animation.DROP,
 			  position: {lat: position.coords.latitude, lng:position.coords.longitude},
@@ -48,7 +69,8 @@ function initMap() {
 			});
 			marker.addListener('click', toggleBounce);
 	});
-	}
+    }
+    
 }
 
  function toggleBounce() {
@@ -79,7 +101,15 @@ function deleteMarker(){
 			return;
 	}
 	
-	allMyMarkers[i--].setVisible(false);
+  allMyMarkers[i--].setIcon("b.png");
+  // allMyMarkers[i--].setVisible(false);
+    var gPath;
+    var vPath;
+    gPath = ghostPath.getPath();
+    vPath = visitPath.getPath();
+    gPath.push(vPath.pop());
+    // if(vPath.getlength > 0)    
+    //   gPath.push(vPath.push(v.getLength - 1));
 	
 }
 
@@ -111,48 +141,3 @@ function startClock() {
     else if (clicked === true) {
     }
 }	
-/*var map, marker;
-function initMap() {
-    var latLng = new google.maps.LatLng(1.4304, 103.8354);
-
-    map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 15,
-        center: latLng,
-        mapTypeControl: false,
-        streetViewControl: false,
-        fullscreenControl: false,
-        rotateControl: false,
-        zoomControl: false
-    });
-
-    // Try HTML5 geolocation.
-    if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-        var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-        };
-
-        marker = new google.maps.Marker({
-            position: pos,
-            map: map,
-            title: 'Hello World!'
-          });
-  
-        map.setCenter(pos);
-    }, function() {
-        handleLocationError(true, infoWindow, map.getCenter());
-    });
-    } else {
-        // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
-    }
-}
-
-    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-      infoWindow.setPosition(pos);
-      infoWindow.setContent(browserHasGeolocation ?
-                            'Error: The Geolocation service failed.' :
-                            'Error: Your browser doesn\'t support geolocation.');
-      infoWindow.open(map);
-    }*/
