@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>  
+		<title>Simple Map</title>
+		<meta name="viewport" content="initial-scale=1.0">
+		<meta charset="utf-8">    
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxPrpqKhKr97MSH3xJoaQYEQrhf7nqNMQ&callback=initMap"
+			async defer></script>
+		<script src="script.js"></script>
+		<link rel="stylesheet" href="style.css">
+
+	</head>
+	<body>
+		<button id="'button'">Open</button>
+		<input id="file-input" type="file" name="gpxfile">
+		<button id="'button1'" onclick="deleteMarker()">Deleteeed</button>
+		<button id="'button1'" onclick="startGame()">StartRun!</button><div id="timer">0</div>
+		<div id="map"></div>
+  </body>
+</html>
