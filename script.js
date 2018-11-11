@@ -25,6 +25,13 @@ $(document).ready(function() {
 		console.log(allCoord[i++].toString());
       });
 
+      ghostPath = new google.maps.Polyline({
+        strokeColor: '#ff0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 3,
+        path: allCoord
+    });
+    
     visitPath = new google.maps.Polyline({
         strokeColor: '#000ec9',
         strokeOpacity: 1.0,
@@ -32,14 +39,11 @@ $(document).ready(function() {
         path: allCoord
       });
 
-   ghostPath = new google.maps.Polyline({
-        strokeColor: '#ff0000',
-        strokeOpacity: 1.0,
-        strokeWeight: 3
-    });
+   
     // visitPath.setPath(allCoord);
-    visitPath.setMap(map);
+    
     ghostPath.setMap(map);
+    visitPath.setMap(map);
     };
    // map.setCenter(allMyMarkers[0].getPosition().lat(), allMyMarkers[0].getPosition().lng());
     reader.readAsText(this.files[0]);
@@ -107,7 +111,8 @@ function deleteMarker(){
     var vPath;
     gPath = ghostPath.getPath();
     vPath = visitPath.getPath();
-    gPath.push(vPath.pop());
+    vPath.pop();
+    // gPath.push(vPath.pop());
     // if(vPath.getlength > 0)    
     //   gPath.push(vPath.push(v.getLength - 1));
 	
