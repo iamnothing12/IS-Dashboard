@@ -70,9 +70,7 @@ function initMap() {
 		navigator.geolocation.getCurrentPosition(function(position) {
 			map = new google.maps.Map(document.getElementById('map'), {
 			  zoom: 15,
-        center: {lat: position.coords.latitude, lng: position.coords.longitude},
-        //disable map ui
-        disableDefaultUI: true
+			  center: {lat: position.coords.latitude, lng: position.coords.longitude}
 			});
 			
 			marker = new google.maps.Marker({
@@ -83,12 +81,7 @@ function initMap() {
 			  visible: true
 			});
       loadFile("bedok.gpx");
-      marker.addListener('click', toggleBounce);
-      //var latLng = new google.maps.LatLng(lat,lng);
-		 google.maps.event.addListener(marker, 'drag', function() {
-		//updateMarkerStatus('Dragging...');
-		updateUserLocation2(marker.getPosition());
-		});
+			marker.addListener('click', toggleBounce);
 	   });
     }
 }
@@ -96,7 +89,7 @@ function initMap() {
 function loadFile(filePath) {
 
   if (marker !=undefined && map != undefined) {
-      var options = {enableHighAccuracy: true,timeout: 10,maximumAge: 0};
+      var options = {enableHighAccuracy: true,timeout: 1,maximumAge: 0};
       var watchLoc = navigator.geolocation.watchPosition(updateUserLocation2, navError, options);
     } else {
       console.log("poo");
@@ -161,18 +154,17 @@ function loadFile(filePath) {
 }
 
 function navError(){
-	  //console.warn(`ERROR(${err.code}): ${err.message}`);
+	  console.warn(`ERROR(${err.code}): ${err.message}`);
 }
 
 function updateUserLocation2(position) {
-	//var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
   //var latLng = new google.maps.LatLng(marker.getPosition().lat(), marker.getPosition().lng());
-  var latLng = new google.maps.LatLng(marker.getPosition().lat(), marker.getPosition().lng());
 	marker.setPosition(latLng);
 	console.log("gogg");
 	if (clicked) {
 		var dist = google.maps.geometry.spherical.computeDistanceBetween(allMyMarkers[userCp].getPosition(), latLng);
-		if (dist <= 20) {
+		if (dist <= 50) {
 			allMyMarkers[userCp].setIcon("images/spag.jpeg");
       //allMyMarkers[userCp].setVisible = false;
 			userCp--;
