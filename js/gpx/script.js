@@ -42,13 +42,11 @@ $(document).ready(function() {
         path: allCoord
       });
 
-   
-    // visitPath.setPath(allCoord);
     
     ghostPath.setMap(map);
     visitPath.setMap(map);
     };
-   // map.setCenter(allMyMarkers[0].getPosition().lat(), allMyMarkers[0].getPosition().lng());
+  
     reader.readAsText(this.files[0]);
     
   });
@@ -99,7 +97,7 @@ function loadFile(filePath) {
       var options = {enableHighAccuracy: true,timeout: 10,maximumAge: 0};
       var watchLoc = navigator.geolocation.watchPosition(updateUserLocation2, navError, options);
     } else {
-      console.log("poo");
+      console.log("Map Undefined.");
     }
 
   var result = null;
@@ -107,10 +105,10 @@ function loadFile(filePath) {
   xmlhttp.open("GET", filePath, false);
   xmlhttp.send();
   if (xmlhttp.status==200) {
-    console.log("Yeetster");
+    console.log("XMLHTTP STATUS:"+xmlhttp.status);
     result = xmlhttp.responseText;
   } else {
-    console.log("No yeet :(");
+    console.log("XMLHTTP NOT RESPONDING PLEASE CONTACT THE ADMINISTRATOR");
   }
   autoLoad = result;
 
@@ -183,21 +181,21 @@ function updateUserLocation2(position) {
 	}
 }
 
-function updateUserLocation() {
-	if (navigator.geolocation) {
-		console.log("Getting location");
-		console.log(marker.getPosition().lat());
-		navigator.geolocation.getCurrentPosition(function(position) {
-			console.log("dddddd");
-			var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-			console.log("New Pos");
-			console.log(latlng.lat());
-			marker.setPosition(latlng);
-		}, navError);
-		console.log("Done");
-		console.log(marker.getPosition().lat());
-    }
-}
+//function updateUserLocation() {
+//	if (navigator.geolocation) {
+//		console.log("Getting location");
+//		console.log(marker.getPosition().lat());
+//		navigator.geolocation.getCurrentPosition(function(position) {
+//			console.log("dddddd");
+//			var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+//			console.log("New Pos");
+//			console.log(latlng.lat());
+//			marker.setPosition(latlng);
+//		}, navError);
+//		console.log("Done");
+//		console.log(marker.getPosition().lat());
+//   }
+//}
 
  function toggleBounce() {
         if (marker.getAnimation() !== null) {
@@ -210,10 +208,10 @@ function updateUserLocation() {
 	
 
 function startGame(){
-	time = setInterval(deleteMarker, 5000);
+	time = setInterval(deleteMarker, 3000); //The time normal timing should be 120000ms for prototyping and demostration purpose the interval is set to 3000ms
 	
 	if (clicked == false) {
-        clock = setInterval(stopWatch, 1000);
+        clock = setInterval(stopWatch, 1000); //The timer increase every second 
         clicked = true;
     }
     else if (clicked == true) {
@@ -244,7 +242,7 @@ function deleteMarker(){
 
 function addMarker(){
 	if(i>= allMyMarkers.length){
-			alert("You lazy fag never put gpx file in!");
+			alert("Finished");
 			return;
 	}
 	
