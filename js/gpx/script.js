@@ -15,15 +15,15 @@ $(document).ready(function () {
       $xml.find('trkpt').each(function () {
         var lat = $(this).attr('lat');
         var lon = $(this).attr('lon');
-		var startimage = 'images/start.png';
-        var image = 'images/man.png';
+        var image = 'images/start.png';
 		if(i==0){
 			var marker = new google.maps.Marker({
 			position: new google.maps.LatLng(lat, lon),
 			map: map,
-			icon: startimage,
+			icon: image,
         });
 		}else{
+			image = 'images/man.png';
 			var marker = new google.maps.Marker({
           position: new google.maps.LatLng(lat, lon),
           map: map,
