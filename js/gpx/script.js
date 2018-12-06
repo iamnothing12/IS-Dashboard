@@ -194,7 +194,7 @@ function updateUserLocation2(position) {
   marker.setPosition(latLng);
   if (clicked) {
     var dist = google.maps.geometry.spherical.computeDistanceBetween(allMyMarkers[userCp].getPosition(), latLng);
-    if (dist <= 20) {
+    if (dist <= 30) {
       allMyMarkers[userCp].setIcon("images/flag.png");
       //allMyMarkers[userCp].setVisible = false;
       userCp--;
