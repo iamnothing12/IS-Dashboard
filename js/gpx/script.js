@@ -15,12 +15,22 @@ $(document).ready(function () {
       $xml.find('trkpt').each(function () {
         var lat = $(this).attr('lat');
         var lon = $(this).attr('lon');
+		var var startimage = 'images/start.png';
         var image = 'images/man.png';
-        var marker = new google.maps.Marker({
+		if(i==0){
+			var marker = new google.maps.Marker({
+			position: new google.maps.LatLng(lat, lon),
+			map: map,
+			icon: startimage,
+        });
+		}else{
+			var marker = new google.maps.Marker({
           position: new google.maps.LatLng(lat, lon),
           map: map,
           icon: image,
         });
+		}
+        
         allMyMarkers.push(marker);
         allCoord.push(marker.getPosition())
         // visitPath.setPath(allCoord);
