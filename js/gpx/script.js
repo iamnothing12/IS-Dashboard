@@ -15,7 +15,7 @@ $(document).ready(function () {
       $xml.find('trkpt').each(function () {
         var lat = $(this).attr('lat');
         var lon = $(this).attr('lon');
-		var var startimage = 'images/start.png';
+		var startimage = 'images/start.png';
         var image = 'images/man.png';
 		if(i==0){
 			var marker = new google.maps.Marker({
