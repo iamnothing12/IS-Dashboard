@@ -150,12 +150,21 @@ function loadFile(filePath) {
   $xml.find('trkpt').each(function () {
     var lat = $(this).attr('lat');
     var lon = $(this).attr('lon');
-    var image = 'images/man.png';
-    var mrk = new google.maps.Marker({
-      position: new google.maps.LatLng(lat, lon),
-      map: map,
-      icon: image,
-    });
+     var image = 'images/start.png';
+		if(i==0){
+			var marker = new google.maps.Marker({
+			position: new google.maps.LatLng(lat, lon),
+			map: map,
+			icon: image,
+        });
+		}else{
+			image = 'images/man.png';
+			var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(lat, lon),
+          map: map,
+          icon: image,
+        });
+		}
     // push markers and coordinates into arrays
     allMyMarkers.push(mrk);
     allCoord.push(mrk.getPosition())
