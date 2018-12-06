@@ -149,7 +149,7 @@ function loadFile(filePath) {
     // push markers and coordinates into arrays
     allMyMarkers.push(mrk);
     allCoord.push(mrk.getPosition());
-	allMyMarkers[i--].setIcon("images/start.png");
+	allMyMarkers[0].setIcon("images/start.png");
     // visitPath.setPath(allCoord);
     console.log(allCoord[i++].toString());
     console.log(userCp);
