@@ -148,8 +148,8 @@ function loadFile(filePath) {
     });
     // push markers and coordinates into arrays
     allMyMarkers.push(mrk);
-    allCoord.push(mrk.getPosition())
-	allMyMarkers[0].setIcon("images/start.png");
+    allCoord.push(mrk.getPosition());
+	allMyMarkers[i--].setIcon("images/start.png");
     // visitPath.setPath(allCoord);
     console.log(allCoord[i++].toString());
     console.log(userCp);
