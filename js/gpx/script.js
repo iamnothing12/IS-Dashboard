@@ -1,56 +1,60 @@
-$(document).ready(function() {
-    $("#file-input").change(function(){
-		
-      var reader = new FileReader();
-    
-    reader.onload = function(e){
+// base code for loadCoords
+$(document).ready(function () {
+  $("#file-input").change(function () {
+
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
       var text = reader.result;
       var gpxDoc = $.parseXML(text);
       var $xml = $(gpxDoc);
       alert($xml.find('name').text());
-      
+
       var alerted = false;
-      
-      $xml.find('trkpt').each(function(){
-          var lat = $(this).attr('lat');
+
+      $xml.find('trkpt').each(function () {
+        var lat = $(this).attr('lat');
         var lon = $(this).attr('lon');
-        		  var image = 'images/a.png';
+        var image = 'images/man.png';
         var marker = new google.maps.Marker({
           position: new google.maps.LatLng(lat, lon),
           map: map,
           icon: image,
         });
-    allMyMarkers.push(marker);
-    allCoord.push(marker.getPosition())
-    // visitPath.setPath(allCoord);
-		console.log(allCoord[i++].toString());
-		console.log(userCp);
-		userCp = i-1;
+        allMyMarkers.push(marker);
+        allCoord.push(marker.getPosition())
+        // visitPath.setPath(allCoord);
+        console.log(allCoord[i++].toString());
+        console.log(userCp);
+        userCp = i - 1;
       });
-
+      // ghost polyline
       ghostPath = new google.maps.Polyline({
         strokeColor: '#ff0000',
         strokeOpacity: 1.0,
         strokeWeight: 3,
         path: allCoord
-    });
-    
-    visitPath = new google.maps.Polyline({
+      });
+      // original polyline
+      visitPath = new google.maps.Polyline({
         strokeColor: '#000ec9',
         strokeOpacity: 1.0,
         strokeWeight: 3,
         path: allCoord
       });
 
-    
-    ghostPath.setMap(map);
-    visitPath.setMap(map);
+
+      
+      //put lines on map
+      ghostPath.setMap(map);
+      visitPath.setMap(map);
     };
-  
+    // map.setCenter(allMyMarkers[0].getPosition().lat(), allMyMarkers[0].getPosition().lng());
     reader.readAsText(this.files[0]);
-    
+
   });
 });
+// global variables 
 var i = 0;
 var userCp = 0;
 var marker, map;
@@ -58,213 +62,246 @@ var userLocationWorker;
 var allMyMarkers = [];
 var allCoord = [];
 var visitPath, ghostPath;
-var time, clicked=false,sec=0;
+var time, clicked = false,
+  sec = 0;
 var clock;
 
 var autoLoad;
 
+// load map on start
 function initMap() {
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(function(position) {
-			map = new google.maps.Map(document.getElementById('map'), {
-			  zoom: 15,
-        center: {lat: position.coords.latitude, lng: position.coords.longitude},
+  // get user current location
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 15,
+        center: {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        },
         //disable map ui
         disableDefaultUI: true
-			});
-			
-			marker = new google.maps.Marker({
+      });
+      // marker to simulate demo user
+      marker = new google.maps.Marker({
         map: map,
-			  draggable: true,
-			  animation: google.maps.Animation.DROP,
-			  position: {lat: position.coords.latitude, lng:position.coords.longitude},
-			  visible: true
-			});
+        draggable: true,
+        animation: google.maps.Animation.DROP,
+        position: {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        },
+        visible: true
+      });
       loadFile("bedok.gpx");
       marker.addListener('click', toggleBounce);
       //var latLng = new google.maps.LatLng(lat,lng);
-		 google.maps.event.addListener(marker, 'drag', function() {
-		//updateMarkerStatus('Dragging...');
-		updateUserLocation2(marker.getPosition());
-		});
-	   });
-    }
+      google.maps.event.addListener(marker, 'drag', function () {
+        //updateMarkerStatus('Dragging...');
+        updateUserLocation2(marker.getPosition());
+      });
+    });
+  }
 }
 
+// gpx reader and plot the points
 function loadFile(filePath) {
-
-  if (marker !=undefined && map != undefined) {
-      var options = {enableHighAccuracy: true,timeout: 10,maximumAge: 0};
-      var watchLoc = navigator.geolocation.watchPosition(updateUserLocation2, navError, options);
-    } else {
-      console.log("Map Undefined.");
-    }
+  // user radius checker
+  if (marker != undefined && map != undefined) {
+    var options = {
+      enableHighAccuracy: true,
+      timeout: 10,
+      maximumAge: 0
+    };
+    var watchLoc = navigator.geolocation.watchPosition(updateUserLocation2, navError, options);
+  } else {
+    console.log("marker or map undefined");
+  }
 
   var result = null;
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.open("GET", filePath, false);
   xmlhttp.send();
-  if (xmlhttp.status==200) {
-    console.log("XMLHTTP STATUS:"+xmlhttp.status);
+  if (xmlhttp.status == 200) {
+    console.log("xml success");
     result = xmlhttp.responseText;
   } else {
-    console.log("XMLHTTP NOT RESPONDING PLEASE CONTACT THE ADMINISTRATOR");
+    console.log("xml failed");
   }
   autoLoad = result;
+  // gpx parsing
+  var text = result;
+  var gpxDoc = $.parseXML(text);
+  var $xml = $(gpxDoc);
+  alert($xml.find('name').text());
 
-      var text = result;
-      var gpxDoc = $.parseXML(text);
-      var $xml = $(gpxDoc);
-      alert($xml.find('name').text());
-      
-      var alerted = false;
-      
-      $xml.find('trkpt').each(function(){
-          var lat = $(this).attr('lat');
-        var lon = $(this).attr('lon');
-              var image = 'images/a.png';
-        var mrk = new google.maps.Marker({
-          position: new google.maps.LatLng(lat, lon),
-          map: map,
-          icon: image,
-        });
+  var alerted = false;
+
+  $xml.find('trkpt').each(function () {
+    var lat = $(this).attr('lat');
+    var lon = $(this).attr('lon');
+    var image = 'images/man.png';
+    var mrk = new google.maps.Marker({
+      position: new google.maps.LatLng(lat, lon),
+      map: map,
+      icon: image,
+    });
+    // push markers and coordinates into arrays
     allMyMarkers.push(mrk);
     allCoord.push(mrk.getPosition())
     // visitPath.setPath(allCoord);
     console.log(allCoord[i++].toString());
     console.log(userCp);
-    userCp = i-1;
-      });
+    userCp = i - 1;
+  });
 
-      ghostPath = new google.maps.Polyline({
-        strokeColor: '#ff0000',
-        strokeOpacity: 1.0,
-        strokeWeight: 3,
-        path: allCoord
-    });
-    
-    visitPath = new google.maps.Polyline({
-        strokeColor: '#000ec9',
-        strokeOpacity: 1.0,
-        strokeWeight: 3,
-        path: allCoord
-      });
-    // clicked = true;
+  // ghost polyline
+  ghostPath = new google.maps.Polyline({
+    strokeColor: '#ff0000',
+    strokeOpacity: 1.0,
+    strokeWeight: 3,
+    path: allCoord
+  });
+  
+  // original polyline
+  visitPath = new google.maps.Polyline({
+    strokeColor: '#000ec9',
+    strokeOpacity: 1.0,
+    strokeWeight: 3,
+    path: allCoord
+  });
+  // clicked = true;
 
-   
-    // visitPath.setPath(allCoord);
-    
-    ghostPath.setMap(map);
-    visitPath.setMap(map);
+
+  // visitPath.setPath(allCoord);
+  // put lines on map
+  ghostPath.setMap(map);
+  visitPath.setMap(map);
 }
 
-function navError(){
-	  //console.warn(`ERROR(${err.code}): ${err.message}`);
+function navError() {
+  //console.warn(`ERROR(${err.code}): ${err.message}`);
 }
 
+// detect if user "hit" checkpoints
 function updateUserLocation2(position) {
-	//var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  //var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
   //var latLng = new google.maps.LatLng(marker.getPosition().lat(), marker.getPosition().lng());
   var latLng = new google.maps.LatLng(marker.getPosition().lat(), marker.getPosition().lng());
-	marker.setPosition(latLng);
-	console.log("gogg");
-	if (clicked) {
-		var dist = google.maps.geometry.spherical.computeDistanceBetween(allMyMarkers[userCp].getPosition(), latLng);
-		if (dist <= 20) {
-			allMyMarkers[userCp].setIcon("images/spag.jpeg");
+  marker.setPosition(latLng);
+  if (clicked) {
+    var dist = google.maps.geometry.spherical.computeDistanceBetween(allMyMarkers[userCp].getPosition(), latLng);
+    if (dist <= 20) {
+      allMyMarkers[userCp].setIcon("images/flag.png");
       //allMyMarkers[userCp].setVisible = false;
-			userCp--;
-		}
-		console.log("DISTANCE:");
-		console.log(dist);
-		//allMyMarkers[i--].setIcon("b.png");
-	}
+      userCp--;
+    }
+    console.log("DISTANCE:");
+    console.log(dist);
+    //allMyMarkers[i--].setIcon("b.png");
+
+    if(userCp == 0) { 
+      window.location.replace("win.html");
+    }
+  }
 }
 
-//function updateUserLocation() {
-//	if (navigator.geolocation) {
-//		console.log("Getting location");
-//		console.log(marker.getPosition().lat());
-//		navigator.geolocation.getCurrentPosition(function(position) {
-//			console.log("dddddd");
-//			var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-//			console.log("New Pos");
-//			console.log(latlng.lat());
-//			marker.setPosition(latlng);
-//		}, navError);
-//		console.log("Done");
-//		console.log(marker.getPosition().lat());
-//   }
-//}
+// template for user detection
+function updateUserLocation() {
+  if (navigator.geolocation) {
+    console.log("Getting location");
+    console.log(marker.getPosition().lat());
+    navigator.geolocation.getCurrentPosition(function (position) {
+      var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      console.log("New Pos");
+      console.log(latlng.lat());
+      marker.setPosition(latlng);
+    }, navError);
+    console.log("Done");
+    console.log(marker.getPosition().lat());
+  }
+}
 
- function toggleBounce() {
-        if (marker.getAnimation() !== null) {
-          marker.setAnimation(null);
-        } else {
-          marker.setAnimation(google.maps.Animation.BOUNCE);
-        }
-        document.getElementById("button1").setVisible = false;
-      }
-	
+function toggleBounce() {
+  if (marker.getAnimation() !== null) {
+    marker.setAnimation(null);
+  } else {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+  }
+  document.getElementById("button1").setVisible = false;
+}
 
+
+
+// ghost chaser, updates the icons
+function deleteMarker() {
+  if (i < -1) {
+    alert("Please open a GPX file.");
+    clearInterval(time);
+    return;
+  }
+
+  allMyMarkers[i--].setIcon("images/f.png");
+  if (i < userCp) {
+    window.location.replace("lose.html");
+  }
+  //allMyMarkers[i--].
+  // allMyMarkers[i--].setVisible(false);
+  // var gPath;
+  var vPath;
+  // gPath = ghostPath.getPath();
+  vPath = visitPath.getPath();
+  vPath.pop();
+  // gPath.push(vPath.pop());
+  // if(vPath.getlength > 0)    
+  //   gPath.push(vPath.push(v.getLength - 1));
+
+}
+
+// signal the start for the race
 function startGame(){
-	time = setInterval(deleteMarker, 3000); //The time normal timing should be 120000ms for prototyping and demostration purpose the interval is set to 3000ms
+	time = setInterval(deleteMarker, 5000);
 	
 	if (clicked == false) {
-        clock = setInterval(stopWatch, 1000); //The timer increase every second 
+        clock = setInterval(stopWatch, 1000);
         clicked = true;
     }
     else if (clicked == true) {
 		stopClock();
     }
-    document.getElementById("button1").style.visibility = "hidden";
+
 }	  
-	  
-function deleteMarker(){
-	if(i<-1){
-			alert("Please open a GPX file."); 
-			clearInterval(time);
-			return;
-	}
-	
-  allMyMarkers[i--].setIcon("images/b.png");
-  // allMyMarkers[i--].setVisible(false);
-    var gPath;
-    var vPath;
-    gPath = ghostPath.getPath();
-    vPath = visitPath.getPath();
-    vPath.pop();
-    // gPath.push(vPath.pop());
-    // if(vPath.getlength > 0)    
-    //   gPath.push(vPath.push(v.getLength - 1));
-	
-}
 
-function addMarker(){
-	if(i>= allMyMarkers.length){
-			alert("Finished");
-			return;
-	}
-	
-	allMyMarkers[i++].setVisible(true);	
-}
+// function addMarker() {
+//   if (i >= allMyMarkers.length) {
+//     alert("You lazy fag never put gpx file in!");
+//     return;
+//   }
 
+//   allMyMarkers[i++].setVisible(true);
+// }
+var min;
+// time management for the run
 function stopWatch() {
-    sec++;
-    document.getElementById("timer").innerHTML = sec;
+  sec++;
+    
+  document.getElementById("timer").innerHTML = sec;
 }
+// stop run
 function stopClock() {
-    window.clearInterval(clock);
-    sec = 0;
-    document.getElementById("timer").innerHTML=0;
-    clicked = false;
+  window.clearInterval(clock);
+  sec = 0;
+
+  document.getElementById("timer").innerHTML=0;
+  clicked = false;
 }
 
+// start run and the stopwatch
 function startClock() {
-    if (clicked === false) {
-        clock = setInterval("stopWatch()", 1000);
-        clicked = true;
-    }
-    else if (clicked === true) {
-    }
+  if (clicked === false) {
+      clock = setInterval("stopWatch()", 1000);
+      clicked = true;
+  }
+  else if (clicked === true) {
+  }
 }	

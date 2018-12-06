@@ -1,11 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:gpsies="https://www.gpsies.com/GPX/1/0" creator="GPSies https://www.gpsies.com - GPSies Track" version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd https://www.gpsies.com/GPX/1/0 https://www.gpsies.com/gpsies.xsd">
-  <metadata>
-    <name>GPSies Track</name>
-    <time>2018-11-06T08:22:17Z</time>
-  </metadata>
+<gpx>
   <trk>
-    <name>GPSies Track on GPSies.com</name>
     <trkseg>
       <trkpt lat="1.338409310" lon="103.9329840">
         <ele>14.000000</ele>
@@ -178,4 +172,3 @@
     </trkseg>
   </trk>
 </gpx>
-

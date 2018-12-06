@@ -1,13 +1,9 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-	<title>Bedok Reservoir</title>
-		<meta name="viewport" content="initial-scale=1.0">
-		<meta charset="utf-8">    
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxPrpqKhKr97MSH3xJoaQYEQrhf7nqNMQ&callback=initMap" async defer ></script>
-		<script src="js/gpx/script.js"></script>
-		<link rel="stylesheet" href="css/style.css">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>DashBoard</title>
 
 
   	<!-- Facebook and Twitter integration -->
@@ -49,7 +45,7 @@
 
 	</head>
 	<body>
-	
+	<div class="fh5co-loader"></div>	
 	<div id="page">
 		<nav class="fh5co-nav" role="navigation">
 			<div class="top-menu">
@@ -64,21 +60,34 @@
 								<li><a href="newrace.html"><i class="icon-marquee-plus"></i> New Race</a></li>
 								<li><a href="profile.html"><i class="icon-man"></i> Profile</a>	</li>
 								<li class="active"><a href="index.html"><i class="icon-log-out"></i> Logout</a></li>
+								<!-- <li class="btn-cta"><a href="#"><span>Sign Up</span></a></li> -->
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 		</nav>
-		<table>
-			<tr>
-				<td><button id="button1" class="btn btn-success" style="float:right" onclick="startGame()">Start/Stop</button></td>
-				<td><div id="timer">0</div></td>
-				<td><div>  seconds</div></td>
-			</tr>
-		</table>
-		<p id="demo"></p>
-		<div id="map"></div>
+	<div id="fh5co-blog">
+		<div class="container">
+			<div class="row">
+				
+				<div class="col-lg-6 col-md-6">
+					<div class="fh5co-blog animate-box">
+							<div class="blog-1">
+								</div>
+								<img class="img-responsive" src="images/sampleroute3.PNG" alt=""\>
+						<div class="blog-text">
+							<h3>Congratulations</h3>
+                            <p>You Won!</p>
+                            <a href="home.html"> <button type="submit" href="home.html" id="btn-login" class="btn btn-success"><i class="fa fa-lock"></i>Go Home</button></a>
+						</div> 
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
@@ -94,7 +103,7 @@
 	<script src="js/magnific-popup-options.js"></script>
 	<!-- Main -->
 	<script src="js/main.js"></script>
-	</div>
+
 	</body>
 </html>
 
