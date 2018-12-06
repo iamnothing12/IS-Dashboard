@@ -95,6 +95,7 @@ function initMap() {
       });
       loadFile("bedok.gpx");
 	  allMyMarkers[i].setIcon("images/start.png");
+	  allMyMarkers[0].setIcon("images/end.png");
       marker.addListener('click', toggleBounce);
       //var latLng = new google.maps.LatLng(lat,lng);
       google.maps.event.addListener(marker, 'drag', function () {
@@ -150,7 +151,7 @@ function loadFile(filePath) {
     // push markers and coordinates into arrays
     allMyMarkers.push(mrk);
     allCoord.push(mrk.getPosition());
-	allMyMarkers[0].setIcon("images/end.png");
+	
     // visitPath.setPath(allCoord);
     console.log(allCoord[i++].toString());
     console.log(userCp);
